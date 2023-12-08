@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>3D Space Background</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #contactButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3F51B5;
+            color: #acb9ff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="background"></div>
+    <button id="contactButton" onclick="window.location.href='mailto:steve@statusrevolt.com';">Contact Us</button>
+    <script type="module">
+        import * as THREE from 'https://unpkg.com/three@0.159.0/build/three.module.js';
+
+        let scene, camera, renderer, stars, starGeo, starMaterial;
+
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.position.z = 1;
+            camera.rotation.x = Math.PI / 2;
+
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('background').appendChild(renderer.domElement);
+
+            starGeo = new THREE.BufferGeometry();
+            const vertices = [];
+            for (let i = 0; i < 6000; i++) {
+                const x = Math.random() * 600 - 300;
+                const y = Math.random() * 600 - 300;
+                const z = Math.random() * 600 - 300;
+                vertices.push(x, y, z);
+            }
+            starGeo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+            const sprite = new THREE.TextureLoader().load('data:image/png;base64,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');
+            starMaterial = new THREE.PointsMaterial({
+                color: 0xaaaaaa,
+                size: 0.7,
+                map: sprite
+            });
+
+            stars = new THREE.Points(starGeo, starMaterial);
+            scene.add(stars);
+
+            animate();
+        }
+
+        function animate() {
+            stars.rotation.y += 0.002;
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+    </script>
+</body>
+</html>
