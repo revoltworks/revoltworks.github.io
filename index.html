@@ -27,12 +27,21 @@
             color: #acb9ff;
             font-size: 16px;
             cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: arial black;
+        }
+        #logo {    
+            position: absolute;
+            top: 40%;
+            left: 52%;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
 <body>
     <div id="background"></div>
-    <img src="/RevoltWorks-logo.png">
+    <img id="logo" src="/RevoltWorks-logo.png" alt="logo">
     <a id="contactButton" href="mailto:svitale.com">Contact Us</a>
     <script type="module">
         import * as THREE from 'https://unpkg.com/three@0.159.0/build/three.module.js';
@@ -73,7 +82,7 @@
         }
 
         function animate() {
-            stars.rotation.y += 0.002;
+            stars.rotation.y += 0.0002;
             renderer.render(scene, camera);
             requestAnimationFrame(animate);
         }
